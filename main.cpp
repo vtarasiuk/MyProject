@@ -4,5 +4,5 @@
 int main()
 {
   Map m;
-  printf("%d\n%d\n", m.get_size(), 25);
+  printf("%d\n%d\n", m.get_size(), 30);
 }

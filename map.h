@@ -15,8 +15,13 @@ private:
       long ikey, ivalue;
       std::string lpkey, lpvalue;
       Node* next;
-      Node();
-      ~Node();
+      Node()
+      {
+        this->ikey = this->ivalue = 0;
+        this->lpkey = this->lpvalue = "";
+        this->next = nullptr;
+      }
+      ~Node() {}
     };
 
 
@@ -24,42 +29,25 @@ private:
     List* next;
     unsigned int length;
     // template in the future
-    List();
-    ~List();
+    List()
+    {
+      this->length = 0;
+      this->head = nullptr;
+      this->next = nullptr;
+    }
+    ~List() {}
   };
   
   unsigned int size;
   List* head;
 public:
-  Map();
-  ~Map();
+  Map()
+  {
+    this->size = 0;
+    this->head = nullptr;
+  }
+  ~Map() {}
   int get_size(void);
 };
-
-Map::Map()
-{
-  this->size = 0;
-  this->head = nullptr;
-}
-
-Map::~Map() {}
-
-Map::List::List()
-{
-  this->length = 0;
-  this->head = nullptr;
-  this->next = nullptr;
-}
-
-Map::List::~List() {}
-
-Map::List::Node::Node()
-{
-  this->ikey = this->ivalue = 0;
-  this->lpkey = this->lpvalue = "";
-  this->next = nullptr;
-}
-
-Map::List::Node::~Node() {}
 
 #endif
