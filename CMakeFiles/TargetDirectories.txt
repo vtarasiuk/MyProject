@@ -1,3 +1,0 @@
-/home/tarasyuk/Documents/MyProject/CMakeFiles/main.dir
-/home/tarasyuk/Documents/MyProject/CMakeFiles/edit_cache.dir
-/home/tarasyuk/Documents/MyProject/CMakeFiles/rebuild_cache.dir
