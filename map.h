@@ -6,48 +6,52 @@
 class Map
 {
 private:
-  class List
-  {
-  public:
     class Node
     {
     public:
       long ikey, ivalue;
       std::string lpkey, lpvalue;
       Node* next;
+      
       Node()
       {
+        printf("NODE CONSTRUCTOR\n");
         this->ikey = this->ivalue = 0;
         this->lpkey = this->lpvalue = "";
         this->next = nullptr;
       }
-      ~Node() {}
+      ~Node()
+      {
+        printf("NODE DESTRUCTOR\n");
+      }
     };
-
-
-    Node* head;
-    List* next;
-    unsigned int length;
     // template in the future
-    List()
-    {
-      this->length = 0;
-      this->head = nullptr;
-      this->next = nullptr;
-    }
-    ~List() {}
-  };
-  
-  unsigned int size;
-  List* head;
+    unsigned int size;
+    Node* head;
 public:
   Map()
   {
+    printf("MAP CONSTRUCTOR\n");
     this->size = 0;
     this->head = nullptr;
   }
-  ~Map() {}
+  ~Map()
+  {
+    printf("MAP DESTRUCTOR\n");
+    Node* current = this->head;
+    while (current != nullptr)
+    {
+      this->head = current->next;
+      delete current;
+      current = this->head;
+    }
+  }
   int get_size(void);
+  void insert(int, std::string);
+  void insert(std::string, int);
+  void insert(int, int);
+  void insert(std::string, std::string);
+  void print(void);
 };
 
 #endif
