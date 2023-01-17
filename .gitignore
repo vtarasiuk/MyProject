@@ -11,3 +11,4 @@ CTestTestfile.cmake
 _deps
 main.cpp
 main
+.vscode
