@@ -6,7 +6,7 @@ In this project I want to write my map container
 Possible improvements:
 > template functions  
 > launching tests  
-> refactor code  
+>  
 
 ## Contact information
 
