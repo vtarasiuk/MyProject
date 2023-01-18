@@ -1,7 +1,8 @@
 # MyProject
 
 ## I do what my head imagine
-In this project I want to write my map container
+In this project I want to write my map container  
+As for now, insert method is only available, and it works only with std::string key and int value ==> template improve in the future  
 
 Possible improvements:
 > template functions  

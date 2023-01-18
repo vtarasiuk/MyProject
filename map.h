@@ -5,51 +5,56 @@
 
 class Map
 {
-private:
+public:
+  class List
+  {
+  private:
     class Node
     {
     public:
-      long ikey, ivalue;
-      std::string lpkey;
-      Node* next;
+      long ivalue;
+      Node* next; // same keys
       
-      Node()
-      {
-        //printf("NODE CONSTRUCTOR\n");
-        this->ikey = this->ivalue = 0;
-        this->lpkey = "";
-        this->next = nullptr;
-      }
-      ~Node() {/*printf("NODE DESTRUCTOR\n");*/}
+      Node(int&);
+      ~Node();
     };
-    // template in the future
-    unsigned int size;
-    Node* head;
-public:
-  Map()
-  {
-    //printf("MAP CONSTRUCTOR\n");
-    this->size = 0;
-    this->head = nullptr;
-  }
-  ~Map()
-  {
-    //printf("MAP DESTRUCTOR\n");
-    Node* current = this->head;
-    while (current != nullptr)
-    {
-      this->head = current->next;
-      delete current;
-      current = this->head;
-    }
-  }
-  int operator[] (const int&) const;
-  int operator[] (const std::string&) const;
 
+    Node* head;
+    List* nextList;
+    unsigned int length;
+    std::string lpkey;
+    int ikey;
+
+  public:
+    List(std::string&, int&);
+    ~List();
+
+    void listAdd(int);
+    bool isSameKey(std::string);
+    unsigned int getLength();
+    List* getNext(void);
+    void setNextTo(List*);
+    void printList();
+  };
+
+  Map();
+  ~Map();
+  // int operator[] (const int&) const;
+  // int operator[] (const std::string&) const;
+
+  int keyIndex(std::string);
   int get_size(void);
   void insert(std::string, int);
-  void insert(int, int);
+  //void insert(int, int);
   void print(void);
+  unsigned int countNodes();
+
+private:
+  // template in the future
+  unsigned int size;
+  List* headList;
+
+  void addDublicate(int, int);
 };
 
 #endif
