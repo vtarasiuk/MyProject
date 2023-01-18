@@ -5,51 +5,51 @@
 
 class Map
 {
-private:
+public:
+  class List
+  {
+  private:
     class Node
     {
     public:
       long ikey, ivalue;
       std::string lpkey;
-      Node* next;
+      Node* next; // depth
       
-      Node()
-      {
-        //printf("NODE CONSTRUCTOR\n");
-        this->ikey = this->ivalue = 0;
-        this->lpkey = "";
-        this->next = nullptr;
-      }
-      ~Node() {/*printf("NODE DESTRUCTOR\n");*/}
+      Node(std::string&, int&);
+      ~Node();
     };
-    // template in the future
-    unsigned int size;
+
     Node* head;
-public:
-  Map()
-  {
-    //printf("MAP CONSTRUCTOR\n");
-    this->size = 0;
-    this->head = nullptr;
-  }
-  ~Map()
-  {
-    //printf("MAP DESTRUCTOR\n");
-    Node* current = this->head;
-    while (current != nullptr)
-    {
-      this->head = current->next;
-      delete current;
-      current = this->head;
-    }
-  }
-  int operator[] (const int&) const;
-  int operator[] (const std::string&) const;
+    List* nextList; // next list
+    unsigned int length;
+  public:
+    List(std::string&, int&);
+    List(int, std::string);
+    List(int, int);
+    List(std::string, std::string);
+    ~List();
+
+    unsigned int getLength();
+    List* getNext(void);
+    void setNextTo(List*);
+    void printList();
+  };
+
+  Map();
+  ~Map();
+  // int operator[] (const int&) const;
+  // int operator[] (const std::string&) const;
 
   int get_size(void);
   void insert(std::string, int);
   void insert(int, int);
   void print(void);
+
+private:
+  // template in the future
+  unsigned int size;
+  List* headList;
 };
 
 #endif
