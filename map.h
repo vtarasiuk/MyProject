@@ -12,24 +12,25 @@ public:
     class Node
     {
     public:
-      long ikey, ivalue;
-      std::string lpkey;
-      Node* next; // depth
+      long ivalue;
+      Node* next; // same keys
       
-      Node(std::string&, int&);
+      Node(int&);
       ~Node();
     };
 
     Node* head;
-    List* nextList; // next list
+    List* nextList;
     unsigned int length;
+    std::string lpkey;
+    int ikey;
+
   public:
     List(std::string&, int&);
-    List(int, std::string);
-    List(int, int);
-    List(std::string, std::string);
     ~List();
 
+    void listAdd(int);
+    bool isSameKey(std::string);
     unsigned int getLength();
     List* getNext(void);
     void setNextTo(List*);
@@ -41,15 +42,19 @@ public:
   // int operator[] (const int&) const;
   // int operator[] (const std::string&) const;
 
+  int keyIndex(std::string);
   int get_size(void);
   void insert(std::string, int);
-  void insert(int, int);
+  //void insert(int, int);
   void print(void);
+  unsigned int countNodes();
 
 private:
   // template in the future
   unsigned int size;
   List* headList;
+
+  void addDublicate(int, int);
 };
 
 #endif

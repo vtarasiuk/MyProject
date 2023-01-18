@@ -21,6 +21,15 @@ Map::~Map()
   this->headList = nullptr;
 }
 
+Map::List::List(std::string& key, int& value)
+{
+  this->head = new Node(value);
+  this->nextList = nullptr;
+  this->length = 1;
+  this->ikey = 0;
+  this->lpkey = key;
+}
+
 Map::List::~List()
 {
   Node* temp = this->head, *current;
@@ -33,14 +42,11 @@ Map::List::~List()
   this->head = nullptr;
 }
 
-Map::List::Node::Node(std::string& key, int& value)
+Map::List::Node::Node(int& value)
 {
   //printf("NODE CONSTRUCTOR\n");
-  this->lpkey = key;
   this->ivalue = value;
   this->next = nullptr;
-
-  this->ikey = 0;
 }
 
 Map::List::Node::~Node()
@@ -69,24 +75,71 @@ void Map::List::setNextTo(List* nextList)
   if (!this->nextList) this->nextList = nextList;
 }
 
-Map::List::List(std::string& key, int& value) // fill
+int Map::keyIndex(std::string key)
 {
-  this->head = new Node(key, value);
-  this->nextList = nullptr;
-  this->length = 1;
+  List* current = this->headList;
+  unsigned int counter = 0;
+
+  while (current != nullptr)
+  {
+    if (current->isSameKey(key)) return counter;
+    current = current->getNext();
+    counter++;
+  }
+
+  return -1;
+}
+
+bool Map::List::isSameKey(std::string key)
+{
+  return (this->lpkey == key);
+}
+
+void Map::addDublicate(int index, int value)
+{
+  List* current = this->headList;
+  int counter = 0;
+
+  while (counter < index)
+  {
+    current = current->getNext();
+    counter++;
+  }
+
+  current->listAdd(value);
+}
+
+void Map::List::listAdd(int value)
+{
+  Node* current = this->head;
+  if (current->ivalue == value) return;
+  
+  while (current->next != nullptr)
+  {
+    if (current->ivalue == value) return;
+    current = current->next;
+  }
+
+  current->next = new Node(value);
+  this->length++;
 }
 
 void Map::insert(std::string key, int value)
 {
   if (!this->headList)
   {
-    this->headList = new List(key, value); // ifnDefine
+    this->headList = new List(key, value);
     this->size++;
     return;
   }
-  // ifnDefine
-  // ifnDefine add Node() func!!!
-  // ifnDefine
+
+  int dublicate = this->keyIndex(key);
+  if (dublicate != -1)
+  {
+    this->addDublicate(dublicate, value);
+    return;
+  }
+
   List* current = this->headList;
   while (current->getNext() != nullptr)
   {
@@ -97,15 +150,15 @@ void Map::insert(std::string key, int value)
   this->size++;
 }
 
-void Map::List::printList() // just for std::string, int
+void Map::List::printList()
 {
   Node* current = this->head;
   unsigned int counter = 1;
 
   while (current != nullptr)
   {
-    std::cout << "\t  NODE " << counter << std::endl;
-    std::cout << "\tKEY: " << current->lpkey << std::endl;
+    std::cout << "\t  NODE №" << counter << std::endl;
+    std::cout << "\tKEY: " << this->lpkey << std::endl;
     std::cout << "\tVALUE: " << current->ivalue << std::endl;
     std::cout << "\tNEXTNODE: " << current->next << std::endl << std::endl;
     current = current->next;
@@ -117,13 +170,10 @@ void Map::print()
 {
   List* current = this->headList;
   unsigned int counter = 1;
-  // bool isKeyStr;
+
   while (current != nullptr)
   {
-    //isKeyStr = (current->lpkey == "") ? false : true; current[???]
-    if (current->getLength() > 1) /*current->printList();*/ return;
-
-    std::cout << "  LIST " << counter << std::endl;
+    std::cout << "LIST №" << counter << std::endl;
     std::cout << "LENGTH: " << current->getLength() << std::endl;
     std::cout << "NEXT: " << current->getNext() << std::endl << std::endl;
 
@@ -132,5 +182,19 @@ void Map::print()
     current = current->getNext();
     counter++;
   }
-  std::cout << "SIZE: " << this->size << "\n\n";
+  std::cout << "SIZE: " << this->size << std::endl;
+  std::cout << "NODES: " << this->countNodes() << std::endl << std::endl;
+}
+
+unsigned int Map::countNodes()
+{
+  List* current = this->headList;
+  unsigned int nodes = 0;
+
+  while (current != nullptr)
+  {
+    nodes += current->getLength();
+    current = current->getNext();
+  }
+  return nodes;
 }
