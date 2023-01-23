@@ -5,7 +5,7 @@
 
 class Map
 {
-public:
+protected:
   class List
   {
   private:
@@ -37,24 +37,25 @@ public:
     void printList();
   };
 
+  unsigned int countNodes();
+  int keyIndex(std::string);
+  void addDublicate(int, int);
+
+public:
   Map();
   ~Map();
   // int operator[] (const int&) const;
   // int operator[] (const std::string&) const;
 
-  int keyIndex(std::string);
   int get_size(void);
   void insert(std::string, int);
   //void insert(int, int);
   void print(void);
-  unsigned int countNodes();
 
 private:
   // template in the future
   unsigned int size;
   List* headList;
-
-  void addDublicate(int, int);
 };
 
 #endif
